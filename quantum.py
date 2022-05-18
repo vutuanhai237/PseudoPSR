@@ -27,3 +27,11 @@ def create_cry_ansatz(qc: qiskit.QuantumCircuit, thetas):
             qc.cry(thetas[i], 0, i + 1)
     return qc
 
+def create_rzxz_ansatz(qc: qiskit.QuantumCircuit, thetas):
+    k = 0
+    for i in range(0, qc.num_qubits):
+        qc.rz(thetas[k], i)
+        qc.rx(thetas[k + 1], i)
+        qc.rz(thetas[k + 2], i)
+        k = k + 3
+    return qc
