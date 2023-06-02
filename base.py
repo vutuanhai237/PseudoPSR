@@ -91,11 +91,11 @@ def four_term_psr(E: types.FunctionType, thetas:np.ndarray):
     for i in range(0, len(thetas)):
         thetas1, thetas2 = thetas.copy(), thetas.copy()
         thetas3, thetas4 = thetas.copy(), thetas.copy()
-        thetas1[i] += constant.four_term_psr_constant['alpha']
-        thetas2[i] -= constant.four_term_psr_constant['alpha']
-        thetas3[i] += constant.four_term_psr_constant['beta']
-        thetas4[i] -= constant.four_term_psr_constant['beta']
-        grads[i] = - (constant.four_term_psr_constant['d_plus'] * (
-            E(thetas1) - E(thetas2)) - constant.four_term_psr_constant['d_minus'] * (
+        thetas1[i] += constant.four_term_psr['alpha']
+        thetas2[i] -= constant.four_term_psr['alpha']
+        thetas3[i] += constant.four_term_psr['beta']
+        thetas4[i] -= constant.four_term_psr['beta']
+        grads[i] = - (constant.four_term_psr['d_plus'] * (
+            E(thetas1) - E(thetas2)) - constant.four_term_psr['d_minus'] * (
             E(thetas3) - E(thetas4)))
     return grads

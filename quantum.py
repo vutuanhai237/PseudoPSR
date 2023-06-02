@@ -1,5 +1,6 @@
 import qiskit
 import constant
+import numpy as np
 
 def measure(qc: qiskit.QuantumCircuit, qubits, cbits=[]):
     """As its function name
@@ -18,6 +19,15 @@ def measure(qc: qiskit.QuantumCircuit, qubits, cbits=[]):
             qc, backend=constant.backend,
             shots=constant.num_shots).result().get_counts()
     return counts.get("0" * len(qubits), 0) / constant.num_shots
+
+def zz_measure(qc: qiskit.QuantumCircuit):
+    _00 = np.asarray([1, 0, 0, 0])
+    _01 = np.asarray([0, 1, 0, 0])
+    _10 = np.asarray([0, 0, 1, 0])
+    _11 = np.asarray([0, 0, 0, 1])
+    psi = qiskit.quantum_info.Statevector(qc)
+    return np.abs(np.inner(_00, psi))**2 - np.abs(np.inner(_01, psi))**2 - np.abs(np.inner(_10, psi))**2 + np.abs(np.inner(_11, psi))**2
+
 
 def create_cry_ansatz(qc: qiskit.QuantumCircuit, thetas):
     for i in range(0, qc.num_qubits):
